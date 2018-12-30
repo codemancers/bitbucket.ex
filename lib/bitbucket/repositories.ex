@@ -20,7 +20,7 @@ defmodule Bitbucket.Repositories do
   """
   @spec list_mine(Client.t(), Keyword.t()) :: Bitbucket.response()
   def list_mine(client, params \\ [], options \\ []) do
-    get("/users/#{client.auth.account_id}/repositories", client, params, options)
+    get("/teams/#{client.auth.account_id}/repositories", client, params, options)
   end
 
   @doc """
@@ -34,7 +34,7 @@ defmodule Bitbucket.Repositories do
   """
   @spec list_users(Client.t(), binary, Keyword.t(), Keyword.t()) :: Bitbucket.response()
   def list_users(client \\ %Client{}, owner, params \\ [], options \\ []) do
-    get("users/#{owner}/repos", client, params, options)
+    get("/teams/#{owner}/repositories", client, params, options)
   end
 
   @doc """
@@ -42,13 +42,13 @@ defmodule Bitbucket.Repositories do
 
   ## Example
 
-      Bitbucket.Repositories.list_orgs(client, "elixir-lang")
+      Bitbucket.Repositories.list_team(client, "elixir-lang")
 
   More info at: https://developer.github.com/v3/repos/#list-organization-repositories
   """
-  @spec list_orgs(Client.t(), binary, Keyword.t()) :: Bitbucket.response()
-  def list_orgs(client \\ %Client{}, org, params \\ [], options \\ []) do
-    get("orgs/#{org}/repos", client, params, options)
+  @spec list_team(Client.t(), binary, Keyword.t()) :: Bitbucket.response()
+  def list_team(client \\ %Client{}, username, params \\ [], options \\ []) do
+    get("/teams/#{username}/repositories", client, params, options)
   end
 
   @doc """
@@ -78,7 +78,7 @@ defmodule Bitbucket.Repositories do
   """
   @spec repo_get(Client.t(), binary, binary, Keyword.t()) :: Bitbucket.response()
   def repo_get(client \\ %Client{}, owner, repo, params \\ []) do
-    get("repos/#{owner}/#{repo}", client, params)
+    get("repositories/#{owner}/#{repo}", client, params)
   end
 
   @doc """
@@ -114,13 +114,13 @@ defmodule Bitbucket.Repositories do
   end
 
   @doc """
-  Deleting a repository requires admin access. If OAuth is used, the delete_repo scope is required.
+  Deleting a repository requires admin access. repository:delete scope is required.
 
   ## Example
 
       Bitbucket.Repositories.delete("soudqwiggle", "tentacat", client)
 
-  More info at: https://developer.github.com/v3/repos/#delete-a-repository
+  More info at: https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D#delete
   """
   @spec delete(Client.t(), binary, binary) :: Bitbucket.response()
   def delete(client, owner, repo) do
