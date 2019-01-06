@@ -11,6 +11,7 @@ defmodule Bitbucket.MixProject do
       lockfile: "mix.lock",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
+      package: package(),
       deps: deps(),
       name: "Bitbucket",
       docs: [
@@ -36,6 +37,14 @@ defmodule Bitbucket.MixProject do
     [
       {:httpotion, "~> 3.0.0"},
       {:poison, "~> 3.1.0"}
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Yuva Kumar"],
+      licenses: ["MIT"],
+      links: %{github: "https://github.com/code-mancers/bitbucket.ex"}
     ]
   end
 end
