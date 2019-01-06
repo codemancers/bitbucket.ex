@@ -35,8 +35,7 @@ defmodule Bitbucket.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpotion, "~> 3.0.0"},
-      {:poison, "~> 3.1.0"}
+      {:httpoison, "~> 1.2.0"}
     ]
   end
 
